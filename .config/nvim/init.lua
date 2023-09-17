@@ -34,6 +34,7 @@ require("lazy").setup({
   "airblade/vim-gitgutter",
   "numToStr/Comment.nvim",
   "mfussenegger/nvim-lint",
+  "mhartington/formatter.nvim",
   {"akinsho/bufferline.nvim", version = "*", dependencies = "nvim-tree/nvim-web-devicons"},
   {"nvim-telescope/telescope.nvim", dependencies = { 'nvim-lua/plenary.nvim' } },
   { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
@@ -47,6 +48,7 @@ local has_words_before = function()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
+-- MAP TAB & SHIFT TAB to navigate the completion suggestions
 local cmp = require'cmp'
 cmp.setup {
   sources = {
@@ -89,12 +91,48 @@ require('lint').linters_by_ft = {
   javascript = {'eslint_d'}
 }
 
+-- Formatter configuration
+require("formatter").setup {
+  -- Enable or disable logging
+  logging = true,
+  -- Set the log level
+  log_level = vim.log.levels.WARN,
+  -- All formatter configurations are opt-in
+  filetype = {
+    typescriptreact = {
+        function()
+          return {
+            exe = "eslint_d",
+            args = {
+              "--stdin-filename",
+              vim.api.nvim_buf_get_name(0),
+              "--fix",
+              "--cache"
+            },
+            stdin = false
+          }      
+        end
+    },
+  }
+}
+
+-- Use linter for anything javascript-like
 vim.api.nvim_create_autocmd({ "BufWritePost", "TextChanged", "InsertLeave" }, {
   pattern = { "*.tsx", "*.ts", "*.jsx", "*.js", "*.mjs"},
   callback = function()
     require("lint").try_lint()
   end,
 })
+
+-- Use linter for anything javascript-like
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  pattern = { "*.tsx", "*.ts", "*.jsx", "*.js", "*.mjs"},
+  callback = function()
+    vim.cmd("Format")
+  end,
+})
+
+
 
 -- SET THEME
 vim.cmd.colorscheme('nightfox')
