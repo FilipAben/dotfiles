@@ -31,7 +31,7 @@ require("lazy").setup({
   "williamboman/mason-lspconfig.nvim",
   "hrsh7th/nvim-cmp",
   "hrsh7th/cmp-nvim-lsp",
-  "airblade/vim-gitgutter",
+  "lewis6991/gitsigns.nvim",
   "numToStr/Comment.nvim",
   "mfussenegger/nvim-lint",
   "mhartington/formatter.nvim",
@@ -42,6 +42,7 @@ require("lazy").setup({
 
 
 require('lualine').setup()
+require('gitsigns').setup()
 
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
