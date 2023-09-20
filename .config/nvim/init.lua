@@ -79,10 +79,22 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 require("lspconfig").tsserver.setup{
   capabilities = capabilities
 }
+require("lspconfig").tailwindcss.setup{
+  capabilities = capabilities
+}
+require("lspconfig").terraformls.setup{
+  capabilities = capabilities
+}
 
 require("mason").setup()
 require("mason-lspconfig").setup()
-require("bufferline").setup{}
+require("bufferline").setup{
+  options = {
+    buffer_close_icon = 'x',
+    show_buffer_icons = false,
+  }
+
+}
 require('Comment').setup()
 
 require('lint').linters_by_ft = {
@@ -133,8 +145,6 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   end,
 })
 
-
-
 -- SET THEME
 vim.cmd.colorscheme('nightfox')
 
@@ -150,3 +160,4 @@ vim.keymap.set('n', '<Tab>', ":bn<CR>")
 vim.keymap.set('n', '<S-Tab>', ":bp<CR>")
 vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", { noremap = true, silent = true })
