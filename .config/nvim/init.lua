@@ -92,6 +92,7 @@ require("bufferline").setup{
   options = {
     buffer_close_icon = 'x',
     show_buffer_icons = false,
+    separator_style = 'padded_slant',
   }
 
 }
@@ -146,7 +147,7 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 })
 
 -- SET THEME
-vim.cmd.colorscheme('nightfox')
+vim.cmd.colorscheme('duskfox')
 
 -- KEY MAPPING
 vim.keymap.set({'n', 'x'}, 'x', '"_x')
