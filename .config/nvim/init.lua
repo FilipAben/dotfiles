@@ -6,8 +6,8 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.termguicolors = true
-vim.g.mapleader = ' '
 vim.opt.clipboard = 'unnamedplus'
+vim.g.mapleader = ' '
 
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -93,7 +93,6 @@ require("bufferline").setup{
   options = {
     buffer_close_icon = 'x',
     show_buffer_icons = false,
-    separator_style = 'padded_slant',
   }
 
 }
@@ -129,6 +128,12 @@ require("formatter").setup {
         end
     },
   }
+}
+
+require('telescope').setup{ 
+  defaults = { 
+    file_ignore_patterns = { "node_modules" }, 
+  },
 }
 
 -- Use linter for anything javascript-like
