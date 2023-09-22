@@ -7,6 +7,7 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.termguicolors = true
 vim.g.mapleader = ' '
+vim.opt.clipboard = 'unnamedplus'
 
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
