@@ -32,6 +32,7 @@ require("lazy").setup({
   "williamboman/mason-lspconfig.nvim",
   "hrsh7th/nvim-cmp",
   "hrsh7th/cmp-nvim-lsp",
+  "hrsh7th/cmp-nvim-lsp-signature-help",
   "lewis6991/gitsigns.nvim",
   "numToStr/Comment.nvim",
   "mfussenegger/nvim-lint",
@@ -54,7 +55,8 @@ end
 local cmp = require'cmp'
 cmp.setup {
   sources = {
-    { name = 'nvim_lsp' }
+    { name = 'nvim_lsp' },
+    { name = 'nvim_lsp_signature_help' }
   },
   mapping = {
     ["<Tab>"] = cmp.mapping(function(fallback)
@@ -114,18 +116,10 @@ require("formatter").setup {
   -- All formatter configurations are opt-in
   filetype = {
     typescriptreact = {
-        function()
-          return {
-            exe = "eslint_d",
-            args = {
-              "--stdin-filename",
-              vim.api.nvim_buf_get_name(0),
-              "--fix",
-              "--cache"
-            },
-            stdin = false
-          }      
-        end
+      require('formatter.defaults.eslint_d')
+    },
+    typescript = {
+      require('formatter.defaults.eslint_d')
     },
   }
 }
@@ -137,23 +131,23 @@ require('telescope').setup{
 }
 
 -- Use linter for anything javascript-like
-vim.api.nvim_create_autocmd({ "BufWritePost", "TextChanged", "InsertLeave" }, {
-  pattern = { "*.tsx", "*.ts", "*.jsx", "*.js", "*.mjs"},
+vim.api.nvim_create_autocmd({"BufWritePost", "TextChanged", "InsertLeave" }, {
+  pattern = { "*.tsx", "*.ts", "*.jsx", "*.js", "*.mjs", "*.mts" },
   callback = function()
     require("lint").try_lint()
   end,
 })
 
--- Use linter for anything javascript-like
+-- Format anything javascript-like after save
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-  pattern = { "*.tsx", "*.ts", "*.jsx", "*.js", "*.mjs"},
+  pattern = { "*.tsx", "*.ts", "*.jsx", "*.js", "*.mjs", "*.mts"},
   callback = function()
     vim.cmd("Format")
   end,
 })
 
 -- SET THEME
-vim.cmd.colorscheme('duskfox')
+vim.cmd.colorscheme('dawnfox')
 
 -- KEY MAPPING
 vim.keymap.set({'n', 'x'}, 'x', '"_x')
@@ -163,6 +157,7 @@ vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 vim.keymap.set('n', '<leader>fw', builtin.grep_string, {})
+vim.keymap.set('n', '<leader>fs', builtin.lsp_dynamic_workspace_symbols, {})
 vim.keymap.set('n', '<leader>p', vim.diagnostic.goto_prev)
 vim.keymap.set('n', '<leader>n', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<Tab>', ":bn<CR>")
@@ -171,3 +166,4 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", { noremap = true, silent = true })
+vim.diagnostic.config({virtual_text = false})
