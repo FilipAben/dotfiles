@@ -37,6 +37,7 @@ require("lazy").setup({
   "numToStr/Comment.nvim",
   "mfussenegger/nvim-lint",
   "mhartington/formatter.nvim",
+  "windwp/nvim-autopairs",
   {"akinsho/bufferline.nvim", version = "*", dependencies = "nvim-tree/nvim-web-devicons"},
   {"nvim-telescope/telescope.nvim", dependencies = { 'nvim-lua/plenary.nvim' } },
   { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
@@ -45,6 +46,7 @@ require("lazy").setup({
 
 require('lualine').setup()
 require('gitsigns').setup()
+require('nvim-autopairs').setup()
 
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -80,8 +82,14 @@ cmp.setup {
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 require("lspconfig").tsserver.setup{
-  capabilities = capabilities
+  capabilities = capabilities,
+  init_options = { 
+    preferences = { 
+      importModuleSpecifierPreference = 'relative', 
+    },  
+  },
 }
+
 require("lspconfig").tailwindcss.setup{
   capabilities = capabilities
 }
@@ -147,7 +155,7 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 })
 
 -- SET THEME
-vim.cmd.colorscheme('dawnfox')
+vim.cmd.colorscheme('duskfox')
 
 -- KEY MAPPING
 vim.keymap.set({'n', 'x'}, 'x', '"_x')
