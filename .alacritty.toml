@@ -1,0 +1,10 @@
+[font]
+normal = { family = "BlexMono Nerd Font", style = "Regular"} 
+size = 12
+
+[env]
+TERM = "xterm-256color"
+
+[selection]
+save_to_clipboard = true
+
