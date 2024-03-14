@@ -7,6 +7,7 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.termguicolors = true
 vim.opt.clipboard = 'unnamedplus'
+vim.opt.cursorline = true
 vim.g.mapleader = ' '
 
 
@@ -38,9 +39,16 @@ require("lazy").setup({
   "mfussenegger/nvim-lint",
   "mhartington/formatter.nvim",
   "windwp/nvim-autopairs",
+  "https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
   {"akinsho/bufferline.nvim", version = "*", dependencies = "nvim-tree/nvim-web-devicons"},
   {"nvim-telescope/telescope.nvim", dependencies = { 'nvim-lua/plenary.nvim' } },
-  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
+  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
+  }
 })
 
 
@@ -170,6 +178,9 @@ require("formatter").setup {
       require('formatter.defaults.eslint_d')
     },
     typescript = {
+      require('formatter.defaults.eslint_d')
+    },
+    javascript = {
       require('formatter.defaults.eslint_d')
     },
   }
