@@ -48,10 +48,17 @@ require("lazy").setup({
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     ft = { "markdown" },
     build = function() vim.fn["mkdp#util#install"]() end,
+  },
+  {
+    'renerocksai/telekasten.nvim',
+    dependencies = {'nvim-telescope/telescope.nvim'}
   }
 })
 
 
+require('telekasten').setup({
+  home = vim.fn.expand("~/docs"), -- Put the name of your notes directory here
+})
 require('lualine').setup()
 require('nvim-autopairs').setup()
 
@@ -84,6 +91,7 @@ cmp.setup {
         fallback()
       end
     end, { "i", "s" }),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
   }
 }
 
@@ -103,6 +111,11 @@ require("lspconfig").tailwindcss.setup{
 require("lspconfig").terraformls.setup{
   capabilities = capabilities
 }
+
+require("lspconfig").gopls.setup{
+  capabilities = capabilities
+}
+
 
 require("mason").setup()
 require("mason-lspconfig").setup()
@@ -220,6 +233,7 @@ vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 vim.keymap.set('n', '<leader>fw', builtin.grep_string, {})
 vim.keymap.set('n', '<leader>fs', builtin.lsp_dynamic_workspace_symbols, {})
+
 vim.keymap.set('n', '<leader>p', vim.diagnostic.goto_prev)
 vim.keymap.set('n', '<leader>n', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>bd', ":%bd|e#|bd#<CR>")
@@ -229,4 +243,17 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", { noremap = true, silent = true })
+
+vim.keymap.set("n", "<leader>tp", "<cmd>Telekasten panel<CR>")
+vim.keymap.set("n", "<leader>tf", "<cmd>Telekasten find_notes<CR>")
+vim.keymap.set("n", "<leader>tg", "<cmd>Telekasten search_notes<CR>")
+vim.keymap.set("n", "<leader>tt", "<cmd>Telekasten goto_today<CR>")
+vim.keymap.set("n", "<leader>tf", "<cmd>Telekasten follow_link<CR>")
+vim.keymap.set("n", "<leader>tn", "<cmd>Telekasten new_note<CR>")
+vim.keymap.set("n", "<leader>tc", "<cmd>Telekasten show_calendar<CR>")
+vim.keymap.set("n", "<leader>tb", "<cmd>Telekasten show_backlinks<CR>")
+vim.keymap.set("n", "<leader>tI", "<cmd>Telekasten insert_img_link<CR>")
+-- Call insert link automatically when we start typing a link
+-- vim.keymap.set("i", "[[", "<cmd>Telekasten insert_link<CR>")
+
 vim.diagnostic.config({virtual_text = false})
