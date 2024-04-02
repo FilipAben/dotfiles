@@ -57,7 +57,8 @@ require("lazy").setup({
 
 
 require('telekasten').setup({
-  home = vim.fn.expand("~/docs"), -- Put the name of your notes directory here
+  home = vim.fn.expand("~/Notes"), -- Put the name of your notes directory here
+  dailies = vim.fn.expand("~/Notes/Daily"), -- Put the name of your notes directory here
 })
 require('lualine').setup()
 require('nvim-autopairs').setup()
@@ -248,7 +249,7 @@ vim.keymap.set("n", "<leader>tp", "<cmd>Telekasten panel<CR>")
 vim.keymap.set("n", "<leader>tf", "<cmd>Telekasten find_notes<CR>")
 vim.keymap.set("n", "<leader>tg", "<cmd>Telekasten search_notes<CR>")
 vim.keymap.set("n", "<leader>tt", "<cmd>Telekasten goto_today<CR>")
-vim.keymap.set("n", "<leader>tf", "<cmd>Telekasten follow_link<CR>")
+vim.keymap.set("n", "<leader>tl", "<cmd>Telekasten follow_link<CR>")
 vim.keymap.set("n", "<leader>tn", "<cmd>Telekasten new_note<CR>")
 vim.keymap.set("n", "<leader>tc", "<cmd>Telekasten show_calendar<CR>")
 vim.keymap.set("n", "<leader>tb", "<cmd>Telekasten show_backlinks<CR>")
