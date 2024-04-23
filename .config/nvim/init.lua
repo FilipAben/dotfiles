@@ -9,6 +9,7 @@ vim.opt.termguicolors = true
 vim.opt.clipboard = 'unnamedplus'
 vim.opt.cursorline = true
 vim.g.mapleader = ' '
+vim.g.mkdp_auto_close = 0
 
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -52,9 +53,8 @@ require("lazy").setup({
   {
     'renerocksai/telekasten.nvim',
     dependencies = {'nvim-telescope/telescope.nvim'}
-  }
+  },
 })
-
 
 require('telekasten').setup({
   home = vim.fn.expand("~/Notes"), -- Put the name of your notes directory here
@@ -160,19 +160,13 @@ require('gitsigns').setup {
     end, {expr=true})
 
     -- Actions
-    map('n', '<leader>hs', gs.stage_hunk)
-    map('n', '<leader>hr', gs.reset_hunk)
-    map('v', '<leader>hs', function() gs.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
-    map('v', '<leader>hr', function() gs.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
-    map('n', '<leader>hS', gs.stage_buffer)
-    map('n', '<leader>hu', gs.undo_stage_hunk)
-    map('n', '<leader>hR', gs.reset_buffer)
-    map('n', '<leader>hp', gs.preview_hunk)
-    map('n', '<leader>hb', function() gs.blame_line{full=true} end)
-    map('n', '<leader>tb', gs.toggle_current_line_blame)
-    map('n', '<leader>hd', gs.diffthis)
-    map('n', '<leader>hD', function() gs.diffthis('~') end)
-    map('n', '<leader>td', gs.toggle_deleted)
+    map('n', '<leader>gr', gs.reset_hunk)
+    map('v', '<leader>gr', function() gs.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+    map('n', '<leader>gR', gs.reset_buffer)
+    map('n', '<leader>gp', gs.preview_hunk)
+    map('n', '<leader>gb', function() gs.blame_line{full=true} end)
+    map('n', '<leader>gd', gs.diffthis)
+    map('n', '<leader>gD', function() gs.diffthis('~') end)
 
     -- Text object
     map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
@@ -223,21 +217,21 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 })
 
 -- SET THEME
-vim.cmd.colorscheme('duskfox')
+vim.cmd.colorscheme('dayfox')
 
 -- KEY MAPPING
 vim.keymap.set({'n', 'x'}, 'x', '"_x')
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>fp', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 vim.keymap.set('n', '<leader>fw', builtin.grep_string, {})
 vim.keymap.set('n', '<leader>fs', builtin.lsp_dynamic_workspace_symbols, {})
 
 vim.keymap.set('n', '<leader>p', vim.diagnostic.goto_prev)
 vim.keymap.set('n', '<leader>n', vim.diagnostic.goto_next)
+-- close all buffers except the active one
 vim.keymap.set('n', '<leader>bd', ":%bd|e#|bd#<CR>")
+
 vim.keymap.set('n', '<Tab>', ":bn<CR>")
 vim.keymap.set('n', '<S-Tab>', ":bp<CR>")
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
@@ -254,7 +248,5 @@ vim.keymap.set("n", "<leader>tn", "<cmd>Telekasten new_note<CR>")
 vim.keymap.set("n", "<leader>tc", "<cmd>Telekasten show_calendar<CR>")
 vim.keymap.set("n", "<leader>tb", "<cmd>Telekasten show_backlinks<CR>")
 vim.keymap.set("n", "<leader>tI", "<cmd>Telekasten insert_img_link<CR>")
--- Call insert link automatically when we start typing a link
--- vim.keymap.set("i", "[[", "<cmd>Telekasten insert_link<CR>")
 
 vim.diagnostic.config({virtual_text = false})

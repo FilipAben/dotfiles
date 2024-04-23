@@ -1,3 +1,7 @@
+import = [
+    "~/.config/alacritty/themes/themes/papercolor_light.toml"
+]
+
 [font]
 normal = { family = "BlexMono Nerd Font", style = "Regular"} 
 size = 14
