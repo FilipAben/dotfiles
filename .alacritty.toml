@@ -12,3 +12,5 @@ TERM = "xterm-256color"
 [selection]
 save_to_clipboard = true
 
+[shell]
+program = "/opt/homebrew/bin/tmux"

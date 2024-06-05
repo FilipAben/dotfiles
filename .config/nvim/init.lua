@@ -56,6 +56,10 @@ require("lazy").setup({
   },
 })
 
+require('nvim-treesitter').setup({
+  ensure_installed = { "ruby", "embedded_template" }
+})
+
 require('telekasten').setup({
   home = vim.fn.expand("~/Notes"), -- Put the name of your notes directory here
   dailies = vim.fn.expand("~/Notes/Daily"), -- Put the name of your notes directory here
@@ -114,6 +118,10 @@ require("lspconfig").terraformls.setup{
 }
 
 require("lspconfig").gopls.setup{
+  capabilities = capabilities
+}
+
+require("lspconfig").ruby_lsp.setup{
   capabilities = capabilities
 }
 
@@ -191,6 +199,9 @@ require("formatter").setup {
     javascript = {
       require('formatter.defaults.eslint_d')
     },
+    eruby = require("formatter.filetypes.eruby").erbformatter,
+    ruby = require("formatter.filetypes.ruby").standardrb,
+
   }
 }
 
@@ -210,7 +221,7 @@ vim.api.nvim_create_autocmd({"BufWritePost", "TextChanged", "InsertLeave" }, {
 
 -- Format anything javascript-like after save
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-  pattern = { "*.tsx", "*.ts", "*.jsx", "*.js", "*.mjs", "*.mts"},
+  pattern = { "*.tsx", "*.ts", "*.jsx", "*.js", "*.mjs", "*.mts", "*.rb", "*.erb" },
   callback = function()
     vim.cmd("Format")
   end,

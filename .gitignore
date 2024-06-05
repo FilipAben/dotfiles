@@ -1,0 +1,6 @@
+*
+!.gitignore
+!.config/nvim
+!.config/nvim/**
+!.alacritty.toml
+!.tmux.conf
