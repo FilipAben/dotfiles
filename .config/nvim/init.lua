@@ -10,6 +10,7 @@ vim.opt.clipboard = 'unnamedplus'
 vim.opt.cursorline = true
 vim.g.mapleader = ' '
 vim.g.mkdp_auto_close = 0
+vim.g.marked_filetypes = {"markdown", "telekasten"}
 
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -40,22 +41,16 @@ require("lazy").setup({
   "mfussenegger/nvim-lint",
   "mhartington/formatter.nvim",
   "windwp/nvim-autopairs",
+  "itspriddle/vim-marked",
   "https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
   {"akinsho/bufferline.nvim", version = "*", dependencies = "nvim-tree/nvim-web-devicons"},
   {"nvim-telescope/telescope.nvim", dependencies = { 'nvim-lua/plenary.nvim' } },
   { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-  {
-    "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    ft = { "markdown" },
-    build = function() vim.fn["mkdp#util#install"]() end,
-  },
-  {
+  { 
     'renerocksai/telekasten.nvim',
     dependencies = {'nvim-telescope/telescope.nvim'}
   },
 })
-
 require('nvim-treesitter').setup({
   ensure_installed = { "ruby", "embedded_template" }
 })
@@ -122,7 +117,8 @@ require("lspconfig").gopls.setup{
 }
 
 require("lspconfig").ruby_lsp.setup{
-  capabilities = capabilities
+  capabilities = capabilities,
+  on_attach = on_attach
 }
 
 
