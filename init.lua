@@ -12,7 +12,6 @@ vim.g.mapleader = ' '
 vim.g.mkdp_auto_close = 0
 vim.g.marked_filetypes = {"markdown", "telekasten"}
 
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -45,6 +44,7 @@ require("lazy").setup({
   "https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
   {"akinsho/bufferline.nvim", version = "*", dependencies = "nvim-tree/nvim-web-devicons"},
   {"nvim-telescope/telescope.nvim", dependencies = { 'nvim-lua/plenary.nvim' } },
+  {"nvim-telescope/telescope-file-browser.nvim", dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }},
   { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
   { 
     'renerocksai/telekasten.nvim',
@@ -195,15 +195,20 @@ require("formatter").setup {
     javascript = {
       require('formatter.defaults.eslint_d')
     },
-    eruby = require("formatter.filetypes.eruby").erbformatter,
     ruby = require("formatter.filetypes.ruby").standardrb,
-
+    eruby = require("formatter.filetypes.eruby").erbformatter,
   }
 }
 
 require('telescope').setup{ 
   defaults = { 
-    file_ignore_patterns = { "node_modules" }, 
+    file_ignore_patterns = { "node_modules", ".git" }, 
+    layout_strategy = "vertical",
+  },
+  pickers = {
+    find_files = {
+      hidden = true,
+    },
   },
 }
 
@@ -233,6 +238,7 @@ vim.keymap.set('n', '<leader>fp', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fw', builtin.grep_string, {})
 vim.keymap.set('n', '<leader>fs', builtin.lsp_dynamic_workspace_symbols, {})
+vim.keymap.set("n", "<leader>ft", ":Telescope file_browser<CR>")
 
 vim.keymap.set('n', '<leader>p', vim.diagnostic.goto_prev)
 vim.keymap.set('n', '<leader>n', vim.diagnostic.goto_next)
