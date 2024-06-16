@@ -116,11 +116,9 @@ require("lspconfig").gopls.setup{
   capabilities = capabilities
 }
 
-require("lspconfig").ruby_lsp.setup{
-  capabilities = capabilities,
-  on_attach = on_attach
+require("lspconfig").solargraph.setup{
+  capabilities = capabilities
 }
-
 
 require("mason").setup()
 require("mason-lspconfig").setup()
@@ -220,7 +218,7 @@ vim.api.nvim_create_autocmd({"BufWritePost", "TextChanged", "InsertLeave" }, {
   end,
 })
 
--- Format anything javascript-like after save
+-- Format anything javascript & ruby-like after save
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   pattern = { "*.tsx", "*.ts", "*.jsx", "*.js", "*.mjs", "*.mts", "*.rb", "*.erb" },
   callback = function()
@@ -239,6 +237,7 @@ vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fw', builtin.grep_string, {})
 vim.keymap.set('n', '<leader>fs', builtin.lsp_dynamic_workspace_symbols, {})
 vim.keymap.set("n", "<leader>ft", ":Telescope file_browser<CR>")
+vim.keymap.set("n", "<leader>fc", ":Telescope file_browser path=%:p:h select_buffer=true<CR>")
 
 vim.keymap.set('n', '<leader>p', vim.diagnostic.goto_prev)
 vim.keymap.set('n', '<leader>n', vim.diagnostic.goto_next)
