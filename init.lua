@@ -135,7 +135,7 @@ require('lint').linters_by_ft = {
   typescript = {'eslint_d'},
   typescriptreact = {'eslint_d'},
   javascriptreact = {'eslint_d'},
-  javascript = {'eslint_d'}
+  javascript = {'eslint_d'},
 }
 
 require('gitsigns').setup {
@@ -193,8 +193,25 @@ require("formatter").setup {
     javascript = {
       require('formatter.defaults.eslint_d')
     },
-    ruby = require("formatter.filetypes.ruby").standardrb,
     eruby = require("formatter.filetypes.eruby").erbformatter,
+    ruby = {
+      function()
+        local util = require "formatter.util"
+        return {
+          exe = "standardrb",
+          args = {
+            "--fix",
+            "--format",
+            "quiet",
+            "--stderr",
+            "--stdin",
+            util.escape_path(util.get_current_buffer_file_path()),
+          },
+          stdin = true,
+          ignore_exitcode = true,
+        }
+      end
+    }
   }
 }
 
@@ -210,9 +227,21 @@ require('telescope').setup{
   },
 }
 
+-- vim.opt.signcolumn = "yes" -- otherwise it bounces in and out, not strictly needed though
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "ruby",
+  group = vim.api.nvim_create_augroup("RubyLSP", { clear = true }), -- also this is not /needed/ but it's good practice 
+  callback = function()
+    vim.lsp.start {
+      name = "standard",
+      cmd = { "/Users/filip/.rbenv/shims/standardrb", "--lsp" },
+    }
+  end,
+})
+
 -- Use linter for anything javascript-like
-vim.api.nvim_create_autocmd({"BufWritePost", "TextChanged", "InsertLeave" }, {
-  pattern = { "*.tsx", "*.ts", "*.jsx", "*.js", "*.mjs", "*.mts" },
+vim.api.nvim_create_autocmd({"BufWritePost", "TextChanged", "InsertLeave", "BufEnter" }, {
+  pattern = { "*.tsx", "*.ts", "*.jsx", "*.js", "*.mjs", "*.mts"},
   callback = function()
     require("lint").try_lint()
   end,
@@ -227,7 +256,7 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 })
 
 -- SET THEME
-vim.cmd.colorscheme('dayfox')
+vim.cmd.colorscheme('duskfox')
 
 -- KEY MAPPING
 vim.keymap.set({'n', 'x'}, 'x', '"_x')
