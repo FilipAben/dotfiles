@@ -8,6 +8,7 @@ vim.opt.expandtab = true
 vim.opt.termguicolors = true
 vim.opt.clipboard = 'unnamedplus'
 vim.opt.cursorline = true
+vim.opt.splitright = true
 vim.g.mapleader = ' '
 vim.g.mkdp_auto_close = 0
 vim.g.marked_filetypes = {"markdown", "telekasten"}
@@ -289,5 +290,11 @@ vim.keymap.set("n", "<leader>tn", "<cmd>Telekasten new_note<CR>")
 vim.keymap.set("n", "<leader>tc", "<cmd>Telekasten show_calendar<CR>")
 vim.keymap.set("n", "<leader>tb", "<cmd>Telekasten show_backlinks<CR>")
 vim.keymap.set("n", "<leader>tI", "<cmd>Telekasten insert_img_link<CR>")
+
+-- Window navigation using leader
+vim.keymap.set("n", "<leader>wh", "<C-w>h", { noremap = true, silent = true})
+vim.keymap.set("n", "<leader>wj", "<C-w>j", { noremap = true, silent = true})
+vim.keymap.set("n", "<leader>wk", "<C-w>k", { noremap = true, silent = true})
+vim.keymap.set("n", "<leader>wl", "<C-w>l", { noremap = true, silent = true})
 
 vim.diagnostic.config({virtual_text = false})
