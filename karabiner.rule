@@ -1,4 +1,4 @@
-
+{
     "description": "Right cmd + hjkl vim-like key bindings",
     "manipulators": [
         {
@@ -102,6 +102,46 @@
                     "key_code": "left_arrow",
                     "modifiers": [
                         "option"
+                    ]
+                }
+            ],
+            "type": "basic"
+        },
+        {
+            "from": {
+                "key_code": "u",
+                "modifiers": {
+                    "mandatory": [
+                        "right_command"
+                    ]
+                }
+            },
+            "to": [
+                {
+                    "key_code": "left_arrow",
+                    "modifiers": [
+                        "option",
+                        "control"
+                    ]
+                }
+            ],
+            "type": "basic"
+        },
+        {
+            "from": {
+                "key_code": "i",
+                "modifiers": {
+                    "mandatory": [
+                        "right_command"
+                    ]
+                }
+            },
+            "to": [
+                {
+                    "key_code": "right_arrow",
+                    "modifiers": [
+                        "option",
+                        "control"
                     ]
                 }
             ],
