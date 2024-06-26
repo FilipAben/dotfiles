@@ -3,8 +3,12 @@ ZSH_THEME="robbyrussell"
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
 export EDITOR='/opt/homebrew/bin/nvim'
+export FZF_DEFAULT_COMMAND="fd -H"
 alias v="nvim"
-alias vf="fzf --bind 'enter:become(nvim {})'"
+alias vim="nvim"
+alias vf="FZF_DEFAULT_COMMAND=\"fd -H --type file\" fzf --bind 'enter:become(nvim {})'"
+alias cf="FZF_DEFAULT_COMMAND=\"fd -H --type directory\" cd \$(fzf)"
+
 alias f="fzf"
 
 
