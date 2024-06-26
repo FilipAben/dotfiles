@@ -8,8 +8,8 @@ alias v="nvim"
 alias vim="nvim"
 alias vf="FZF_DEFAULT_COMMAND=\"fd -H --type file\" fzf --bind 'enter:become(nvim {})'"
 alias cf="FZF_DEFAULT_COMMAND=\"fd -H --type directory\" cd \$(fzf)"
-
-alias f="fzf"
+alias dou="docker compose up -d"
+alias dod="docker compose down"
 
 
 # bun completions
@@ -20,3 +20,9 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$BUN_INSTALL/bin:$PATH
 eval "$(rbenv init - zsh)"
 eval "$(direnv hook zsh)"
+
+# FZF config
+if [[ ! "$PATH" == */opt/homebrew/opt/fzf/bin* ]]; then
+  PATH="${PATH:+${PATH}:}/opt/homebrew/opt/fzf/bin"
+fi
+source <(fzf --zsh)
