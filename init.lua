@@ -11,7 +11,7 @@ vim.opt.cursorline = true
 vim.opt.splitright = true
 vim.g.mapleader = ' '
 vim.g.mkdp_auto_close = 0
-vim.g.marked_filetypes = {"markdown", "telekasten"}
+vim.g.marked_filetypes = {"markdown"}
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -41,25 +41,30 @@ require("lazy").setup({
   "mfussenegger/nvim-lint",
   "mhartington/formatter.nvim",
   "windwp/nvim-autopairs",
-  "itspriddle/vim-marked",
   "https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
   {"akinsho/bufferline.nvim", version = "*", dependencies = "nvim-tree/nvim-web-devicons"},
   {"nvim-telescope/telescope.nvim", dependencies = { 'nvim-lua/plenary.nvim' } },
   {"nvim-telescope/telescope-file-browser.nvim", dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }},
   { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-  { 
-    'renerocksai/telekasten.nvim',
-    dependencies = {'nvim-telescope/telescope.nvim'}
-  },
+  { 'ggandor/leap.nvim' },
+-- install with yarn or npm
+{
+  "iamcco/markdown-preview.nvim",
+  cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+  build = "cd app && yarn install",
+  init = function()
+    vim.g.mkdp_filetypes = { "markdown" }
+  end,
+  ft = { "markdown" },
+},
 })
+
+require('leap').create_default_mappings()
+
 require('nvim-treesitter').setup({
   ensure_installed = { "ruby", "embedded_template" }
 })
 
-require('telekasten').setup({
-  home = vim.fn.expand("~/Notes"), -- Put the name of your notes directory here
-  dailies = vim.fn.expand("~/Notes/Daily"), -- Put the name of your notes directory here
-})
 require('lualine').setup()
 require('nvim-autopairs').setup()
 
@@ -280,16 +285,6 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", { noremap = true, silent = true })
-
-vim.keymap.set("n", "<leader>tp", "<cmd>Telekasten panel<CR>")
-vim.keymap.set("n", "<leader>tf", "<cmd>Telekasten find_notes<CR>")
-vim.keymap.set("n", "<leader>tg", "<cmd>Telekasten search_notes<CR>")
-vim.keymap.set("n", "<leader>tt", "<cmd>Telekasten goto_today<CR>")
-vim.keymap.set("n", "<leader>tl", "<cmd>Telekasten follow_link<CR>")
-vim.keymap.set("n", "<leader>tn", "<cmd>Telekasten new_note<CR>")
-vim.keymap.set("n", "<leader>tc", "<cmd>Telekasten show_calendar<CR>")
-vim.keymap.set("n", "<leader>tb", "<cmd>Telekasten show_backlinks<CR>")
-vim.keymap.set("n", "<leader>tI", "<cmd>Telekasten insert_img_link<CR>")
 
 -- Window navigation using leader
 vim.keymap.set("n", "<leader>wh", "<C-w>h", { noremap = true, silent = true})
