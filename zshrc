@@ -3,11 +3,12 @@ ZSH_THEME="robbyrussell"
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
 export EDITOR='/opt/homebrew/bin/nvim'
-export FZF_DEFAULT_COMMAND="fd -H"
+export FZF_DEFAULT_OPTS="--walker=file,dir,hidden,follow --walker-skip=.git,node_modules,target,Library"
+export BAT_THEME="gruvbox-dark"
 alias v="nvim"
 alias vim="nvim"
-alias vf="FZF_DEFAULT_COMMAND=\"fd -H --type file\" fzf --bind 'enter:become(nvim {})'"
-alias cf="FZF_DEFAULT_COMMAND=\"fd -H --type directory\" cd \$(fzf)"
+alias ff="rg --line-number --with-filename . --field-match-separator ' ' | fzf --preview \"bat --color=always {1} --highlight-line {2}\" --preview-window ~8,+{2}-5 --bind 'enter:become(nvim +{2} {1})'"
+alias c="cd && FZF_DEFAULT_COMMAND=\"fd -t directory -H\" cd \$(fzf)"
 alias dou="docker compose up -d"
 alias dod="docker compose down"
 
