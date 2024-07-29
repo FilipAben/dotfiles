@@ -122,10 +122,6 @@ require("lspconfig").gopls.setup{
   capabilities = capabilities
 }
 
-require("lspconfig").solargraph.setup{
-  capabilities = capabilities
-}
-
 require("mason").setup()
 require("mason-lspconfig").setup()
 require("bufferline").setup{
@@ -142,6 +138,7 @@ require('lint').linters_by_ft = {
   typescriptreact = {'eslint_d'},
   javascriptreact = {'eslint_d'},
   javascript = {'eslint_d'},
+  ruby = {'standardrb'},
 }
 
 require('gitsigns').setup {
@@ -200,24 +197,7 @@ require("formatter").setup {
       require('formatter.defaults.eslint_d')
     },
     eruby = require("formatter.filetypes.eruby").erbformatter,
-    ruby = {
-      function()
-        local util = require "formatter.util"
-        return {
-          exe = "standardrb",
-          args = {
-            "--fix",
-            "--format",
-            "quiet",
-            "--stderr",
-            "--stdin",
-            util.escape_path(util.get_current_buffer_file_path()),
-          },
-          stdin = true,
-          ignore_exitcode = true,
-        }
-      end
-    }
+    ruby = require("formatter.filetypes.ruby").standardrb
   }
 }
 
@@ -234,20 +214,20 @@ require('telescope').setup{
 }
 
 -- vim.opt.signcolumn = "yes" -- otherwise it bounces in and out, not strictly needed though
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "ruby",
-  group = vim.api.nvim_create_augroup("RubyLSP", { clear = true }), -- also this is not /needed/ but it's good practice 
-  callback = function()
-    vim.lsp.start {
-      name = "standard",
-      cmd = { "/Users/filip/.rbenv/shims/standardrb", "--lsp" },
-    }
-  end,
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "ruby",
+--   group = vim.api.nvim_create_augroup("RubyLSP", { clear = true }), -- also this is not /needed/ but it's good practice 
+--   callback = function()
+--     vim.lsp.start {
+--       name = "standard",
+--       cmd = { "/Users/filip/.rbenv/shims/standardrb", "--lsp" },
+--     }
+--   end,
+-- })
 
 -- Use linter for anything javascript-like
 vim.api.nvim_create_autocmd({"BufWritePost", "TextChanged", "InsertLeave", "BufEnter" }, {
-  pattern = { "*.tsx", "*.ts", "*.jsx", "*.js", "*.mjs", "*.mts"},
+  pattern = { "*.tsx", "*.ts", "*.jsx", "*.js", "*.mjs", "*.mts", "*.rb"},
   callback = function()
     require("lint").try_lint()
   end,
