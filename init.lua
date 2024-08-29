@@ -9,6 +9,11 @@ vim.opt.termguicolors = true
 vim.opt.clipboard = 'unnamedplus'
 vim.opt.cursorline = true
 vim.opt.splitright = true
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldtext = ""
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
 vim.g.mapleader = ' '
 vim.g.mkdp_auto_close = 0
 vim.g.marked_filetypes = {"markdown"}
@@ -62,7 +67,16 @@ require("lazy").setup({
 require('leap').create_default_mappings()
 
 require('nvim-treesitter').setup({
-  ensure_installed = { "ruby", "embedded_template" }
+  ensure_installed = { "ruby", "embedded_template", "rust" },
+  auto_install = true,
+  highlight = {
+    enable = true,
+  },
+  rainbow = {
+    enable = true,
+    extended_mode = true,
+    max_file_lines = nil,
+  },
 })
 
 require('lualine').setup()
@@ -122,6 +136,18 @@ require("lspconfig").gopls.setup{
   capabilities = capabilities
 }
 
+require("lspconfig").ruby_lsp.setup{
+  capabilities = capabilities,
+  filetypes = { "ruby", "eruby" },
+}
+require("lspconfig").rust_analyzer.setup{
+  capabilities = capabilities
+}
+
+require("lspconfig").hls.setup{
+  capabilities = capabilities
+}
+
 require("mason").setup()
 require("mason-lspconfig").setup()
 require("bufferline").setup{
@@ -138,7 +164,7 @@ require('lint').linters_by_ft = {
   typescriptreact = {'eslint_d'},
   javascriptreact = {'eslint_d'},
   javascript = {'eslint_d'},
-  ruby = {'standardrb'},
+  -- ruby = {'standardrb'},
 }
 
 require('gitsigns').setup {
@@ -196,8 +222,8 @@ require("formatter").setup {
     javascript = {
       require('formatter.defaults.eslint_d')
     },
-    eruby = require("formatter.filetypes.eruby").erbformatter,
-    ruby = require("formatter.filetypes.ruby").standardrb
+    -- eruby = require("formatter.filetypes.eruby").erbformatter,
+    ruby = require("formatter.filetypes.ruby").rubocop
   }
 }
 
@@ -212,18 +238,6 @@ require('telescope').setup{
     },
   },
 }
-
--- vim.opt.signcolumn = "yes" -- otherwise it bounces in and out, not strictly needed though
--- vim.api.nvim_create_autocmd("FileType", {
---   pattern = "ruby",
---   group = vim.api.nvim_create_augroup("RubyLSP", { clear = true }), -- also this is not /needed/ but it's good practice 
---   callback = function()
---     vim.lsp.start {
---       name = "standard",
---       cmd = { "/Users/filip/.rbenv/shims/standardrb", "--lsp" },
---     }
---   end,
--- })
 
 -- Use linter for anything javascript-like
 vim.api.nvim_create_autocmd({"BufWritePost", "TextChanged", "InsertLeave", "BufEnter" }, {
