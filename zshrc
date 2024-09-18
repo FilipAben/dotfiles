@@ -19,8 +19,6 @@ alias dod="docker compose down"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$BUN_INSTALL/bin:$PATH
-eval "$(rbenv init - zsh)"
-eval "$(direnv hook zsh)"
 
 # FZF config
 if [[ ! "$PATH" == */opt/homebrew/opt/fzf/bin* ]]; then
