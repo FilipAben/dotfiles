@@ -6,7 +6,7 @@ local config = wezterm.config_builder()
 config.color_scheme = 'Belge'
 config.font = wezterm.font 'BlexMono Nerd Font'
 config.scrollback_lines = 100000
-
+config.font_size = 16
 local act = wezterm.action
 
 -- Change mouse scroll amount
@@ -31,52 +31,52 @@ config.mouse_bindings = {
 config.keys = {
   {
     key = 'c',
-    mods = 'ALT',
+    mods = 'SUPER',
     action = act.CopyTo 'Clipboard',
   },
   {
     key = 'v',
-    mods = 'ALT',
+    mods = 'SUPER',
     action = act.PasteFrom 'Clipboard',
   },
   {
     key = 't',
-    mods = 'ALT',
+    mods = 'SUPER',
     action = act.SpawnTab 'CurrentPaneDomain',
   },
   {
     key = 'n',
-    mods = 'ALT',
+    mods = 'SUPER',
     action = act.SpawnWindow,
   },
   {
     key = 'd',
-    mods = 'ALT',
+    mods = 'SUPER',
     action = act.SplitHorizontal { domain = 'CurrentPaneDomain'},
   },
   {
     key = 'd',
-    mods = 'ALT|SHIFT',
+    mods = 'SUPER|SHIFT',
     action = act.SplitVertical { domain = 'CurrentPaneDomain'},
   },
   {
     key = 'f',
-    mods = 'ALT',
+    mods = 'SUPER',
     action = act.TogglePaneZoomState,
   },
   {
     key = 's',
-    mods = 'ALT',
+    mods = 'SUPER',
     action = act.PaneSelect,
   },
   {
     key = 'h',
-    mods = 'ALT',
+    mods = 'SUPER',
     action = act.AdjustPaneSize { 'Left', 5 },
   },
   {
     key = 'j',
-    mods = 'ALT',
+    mods = 'SUPER',
     action = act.AdjustPaneSize { 'Down', 5 },
   },
   { 
@@ -86,21 +86,21 @@ config.keys = {
   },
   {
     key = 'l',
-    mods = 'ALT',
+    mods = 'SUPER',
     action = act.AdjustPaneSize { 'Right', 5 },
   },
   {
     key = 'f',
-    mods = 'ALT',
+    mods = 'SUPER',
     action = act.Search("CurrentSelectionOrEmptyString"),
   },
 }
 
 for i = 1, 8 do
-  -- CTRL+ALT + number to activate that tab
+  -- CTRL+SUPER + number to activate that tab
   table.insert(config.keys, {
     key = tostring(i),
-    mods = 'ALT',
+    mods = 'SUPER',
     action = act.ActivateTab(i - 1),
   })
 end
