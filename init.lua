@@ -46,6 +46,7 @@ require("lazy").setup({
   "mfussenegger/nvim-lint",
   "mhartington/formatter.nvim",
   "windwp/nvim-autopairs",
+  "sindrets/diffview.nvim",
   "https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
   {"akinsho/bufferline.nvim", version = "*", dependencies = "nvim-tree/nvim-web-devicons"},
   {"nvim-telescope/telescope.nvim", dependencies = { 'nvim-lua/plenary.nvim' } },
@@ -273,9 +274,12 @@ vim.keymap.set('n', '<leader>n', vim.diagnostic.goto_next)
 -- close all buffers except the active one
 vim.keymap.set('n', '<leader>bd', ":%bd|e#|bd#<CR>")
 
+-- Tab navigation
 vim.keymap.set('n', '<Tab>', ":bn<CR>")
 vim.keymap.set('n', '<S-Tab>', ":bp<CR>")
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
+
+-- LSP stuff
 vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", { noremap = true, silent = true })
@@ -285,5 +289,9 @@ vim.keymap.set("n", "<leader>wh", "<C-w>h", { noremap = true, silent = true})
 vim.keymap.set("n", "<leader>wj", "<C-w>j", { noremap = true, silent = true})
 vim.keymap.set("n", "<leader>wk", "<C-w>k", { noremap = true, silent = true})
 vim.keymap.set("n", "<leader>wl", "<C-w>l", { noremap = true, silent = true})
+
+-- Diffview shortcut
+vim.keymap.set("n", "<leader>go", ":DiffviewOpen<CR>", { noremap = true, silent = true})
+vim.keymap.set("n", "<leader>gc", ":DiffviewClose<CR>", { noremap = true, silent = true})
 
 vim.diagnostic.config({virtual_text = false})
