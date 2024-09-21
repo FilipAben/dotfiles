@@ -18,6 +18,7 @@ vim.g.mapleader = ' '
 vim.g.mkdp_auto_close = 0
 vim.g.marked_filetypes = {"markdown"}
 
+-- Lazy vim config
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -31,13 +32,12 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Packages
 require("lazy").setup({
   "EdenEast/nightfox.nvim",
   "nvim-lualine/lualine.nvim",
   "nvim-treesitter/nvim-treesitter",
   "neovim/nvim-lspconfig",
-  "williamboman/mason.nvim",
-  "williamboman/mason-lspconfig.nvim",
   "hrsh7th/nvim-cmp",
   "hrsh7th/cmp-nvim-lsp",
   "hrsh7th/cmp-nvim-lsp-signature-help",
@@ -51,34 +51,44 @@ require("lazy").setup({
   {"akinsho/bufferline.nvim", version = "*", dependencies = "nvim-tree/nvim-web-devicons"},
   {"nvim-telescope/telescope.nvim", dependencies = { 'nvim-lua/plenary.nvim' } },
   {"nvim-telescope/telescope-file-browser.nvim", dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }},
-  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-  { 'ggandor/leap.nvim' },
--- install with yarn or npm
-{
-  "iamcco/markdown-preview.nvim",
-  cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-  build = "cd app && yarn install",
-  init = function()
-    vim.g.mkdp_filetypes = { "markdown" }
-  end,
-  ft = { "markdown" },
-},
+  {"nvim-telescope/telescope-fzf-native.nvim", build = 'make' },
+  {"ggandor/leap.nvim"},
+  {"MeanderingProgrammer/markdown.nvim", name = "render-markdown", dependencies = { "nvim-treesitter/nvim-treesitter" }},
+
+  -- LSP
+  { 'mrcjkb/rustaceanvim', lazy = false }
 })
 
-require('leap').create_default_mappings()
-
-require('nvim-treesitter').setup({
-  ensure_installed = { "ruby", "embedded_template", "rust" },
+-- Package configs
+require('nvim-treesitter.configs').setup({
+  ensure_installed = { "ruby", "embedded_template", "rust", "markdown", "markdown_inline", "typescript", "javascript" },
   auto_install = true,
   highlight = {
     enable = true,
   },
-  rainbow = {
-    enable = true,
-    extended_mode = true,
-    max_file_lines = nil,
-  },
 })
+
+require("render-markdown").setup {
+    code = {
+        enabled = true,
+        sign = true,
+        style = 'full',
+        position = 'left',
+        language_pad = 0,
+        disable_background = { 'diff' },
+        width = 'full',
+        left_pad = 0,
+        right_pad = 0,
+        min_width = 0,
+        border = 'thin',
+        above = '▄',
+        below = '▀',
+        highlight = 'RenderMarkdownCode',
+        highlight_inline = 'RenderMarkdownCodeInline',
+    },
+}
+
+require('leap').create_default_mappings()
 
 require('lualine').setup()
 require('nvim-autopairs').setup()
@@ -117,7 +127,7 @@ cmp.setup {
 }
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
-require("lspconfig").tsserver.setup{
+require("lspconfig").ts_ls.setup{
   capabilities = capabilities,
   init_options = { 
     preferences = { 
@@ -141,16 +151,11 @@ require("lspconfig").ruby_lsp.setup{
   capabilities = capabilities,
   filetypes = { "ruby", "eruby" },
 }
-require("lspconfig").rust_analyzer.setup{
-  capabilities = capabilities
-}
 
 require("lspconfig").hls.setup{
   capabilities = capabilities
 }
 
-require("mason").setup()
-require("mason-lspconfig").setup()
 require("bufferline").setup{
   options = {
     buffer_close_icon = 'x',
