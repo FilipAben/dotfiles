@@ -2,27 +2,29 @@ modmap:
   - name: Caps-to-esc
     remap:
       CapsLock: Esc
-  - name: Win_R-to-nav
+  - name: win-alt-swap
     device:
-      only: ['NuPhy NuPhy Air75 V2', 'NuPhy NuPhy Air75 V2 Keyboard', 'NuPhy Air75 V2-2 Keyboard']
+      only: ['AT Translated Set 2 keyboard']
     remap:
-      Win_R: Alt_R
       Win_L: Alt_L
+      Alt_L: Win_L
+      Alt_R: Win_R
 
 keymap:
   - name: Vim-like navigation
     remap:
-      Alt_R-h: Left
-      Alt_R-j: Down
-      Alt_R-k: Up
-      Alt_R-l: Right
+      Win-h: Left
+      Win-j: Down
+      Win-k: Up
+      Win-l: Right
   - name: Chromium
     application:
       only: [Chromium]
     remap:
-      Alt-c: C-c
-      Alt-v: C-v
-      Alt-t: C-t
-      Alt-w: C-w
-      Alt-r: C-r
-      Alt-f: C-f
+      Win-c: C-c
+      Win-n: C-n
+      Win-v: C-v
+      Win-t: C-t
+      Win-w: C-w
+      Win-r: C-r
+      Win-f: C-f
