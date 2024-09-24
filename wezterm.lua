@@ -64,11 +64,7 @@ config.keys = {
     mods = 'SUPER',
     action = act.TogglePaneZoomState,
   },
-  {
-    key = 's',
-    mods = 'SUPER',
-    action = act.PaneSelect,
-  },
+  -- Adjusting pane size
   {
     key = 'h',
     mods = 'SUPER',
@@ -89,6 +85,28 @@ config.keys = {
     mods = 'SUPER',
     action = act.AdjustPaneSize { 'Right', 5 },
   },
+  -- Navigating panes
+  {
+    key = 'h',
+    mods = 'CTRL',
+    action = act.ActivatePaneDirection 'Left'
+  },
+  {
+    key = 'j',
+    mods = 'CTRL',
+    action = act.ActivatePaneDirection 'Down'
+  },
+  { 
+    key = 'k', 
+    mods = 'CTRL', 
+    action = act.ActivatePaneDirection 'Up'
+  },
+  {
+    key = 'l',
+    mods = 'CTRL',
+    action = act.ActivatePaneDirection 'Right'
+  },
+  -- Searching
   {
     key = 'f',
     mods = 'SUPER',
