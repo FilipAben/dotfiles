@@ -77,8 +77,8 @@ config.keys = {
   },
   { 
     key = 'k', 
-    mods = 'LEADER', 
-    action = act.AdjustPaneSize { 'Up', 5 } 
+    mods = 'LEADER',
+    action = act.AdjustPaneSize { 'Up', 5 }
   },
   {
     key = 'l',
