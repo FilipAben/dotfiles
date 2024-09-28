@@ -229,7 +229,8 @@ require("formatter").setup {
       require('formatter.defaults.eslint_d')
     },
     -- eruby = require("formatter.filetypes.eruby").erbformatter,
-    ruby = require("formatter.filetypes.ruby").rubocop
+    ruby = require("formatter.filetypes.ruby").rubocop,
+    go = require('formatter.filetypes.go').gofmt
   }
 }
 
@@ -255,7 +256,7 @@ vim.api.nvim_create_autocmd({"BufWritePost", "TextChanged", "InsertLeave", "BufE
 
 -- Format anything javascript & ruby-like after save
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-  pattern = { "*.tsx", "*.ts", "*.jsx", "*.js", "*.mjs", "*.mts", "*.rb", "*.erb" },
+  pattern = { "*.tsx", "*.ts", "*.jsx", "*.js", "*.mjs", "*.mts", "*.rb", "*.erb", "*.go" },
   callback = function()
     vim.cmd("Format")
   end,
