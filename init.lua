@@ -49,9 +49,7 @@ require("lazy").setup({
   "sindrets/diffview.nvim",
   "https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
   {"akinsho/bufferline.nvim", version = "*", dependencies = "nvim-tree/nvim-web-devicons"},
-  {"nvim-telescope/telescope.nvim", dependencies = { 'nvim-lua/plenary.nvim' } },
-  {"nvim-telescope/telescope-file-browser.nvim", dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }},
-  {"nvim-telescope/telescope-fzf-native.nvim", build = 'make' },
+  {"ibhagwan/fzf-lua", dependencies = { "nvim-tree/nvim-web-devicons" }},
   {"ggandor/leap.nvim"},
   {"MeanderingProgrammer/markdown.nvim", name = "render-markdown", dependencies = { "nvim-treesitter/nvim-treesitter" }},
 
@@ -65,6 +63,20 @@ require('nvim-treesitter.configs').setup({
   auto_install = true,
   highlight = {
     enable = true,
+  },
+})
+
+require("fzf-lua").setup({
+  winopts = {
+    preview = {
+      layout = "vertical",
+      vertical = "down:35%"
+    }
+  },
+  keymap = {
+    fzf = {
+      ["ctrl-q"] = "select-all+accept",
+    },
   },
 })
 
@@ -234,18 +246,6 @@ require("formatter").setup {
   }
 }
 
-require('telescope').setup{ 
-  defaults = { 
-    file_ignore_patterns = { "node_modules", ".git" }, 
-    layout_strategy = "vertical",
-  },
-  pickers = {
-    find_files = {
-      hidden = true,
-    },
-  },
-}
-
 -- Use linter for anything javascript-like
 vim.api.nvim_create_autocmd({"BufWritePost", "TextChanged", "InsertLeave", "BufEnter" }, {
   pattern = { "*.tsx", "*.ts", "*.jsx", "*.js", "*.mjs", "*.mts", "*.rb"},
@@ -267,14 +267,16 @@ vim.cmd.colorscheme('duskfox')
 
 -- KEY MAPPING
 vim.keymap.set({'n', 'x'}, 'x', '"_x')
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>fp', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>fw', builtin.grep_string, {})
-vim.keymap.set('n', '<leader>fs', builtin.lsp_dynamic_workspace_symbols, {})
-vim.keymap.set("n", "<leader>ft", ":Telescope file_browser<CR>")
-vim.keymap.set("n", "<leader>fc", ":Telescope file_browser path=%:p:h select_buffer=true<CR>")
 
+-- fzf-lua bindings
+local fzflua= require('fzf-lua')
+vim.keymap.set('n', '<leader>fp', fzflua.files, {})
+vim.keymap.set('n', '<leader>fq', fzflua.quickfix, {})
+vim.keymap.set('n', '<leader>fg', fzflua.live_grep, {})
+vim.keymap.set('n', '<leader>fw', fzflua.grep_cword, {})
+vim.keymap.set('n', '<leader>fs', fzflua.lsp_definitions, {})
+vim.keymap.set('n', '<leader>fr', fzflua.lsp_references, {})
+vim.keymap.set('n', '<leader>ft', fzflua.treesitter, {})
 vim.keymap.set('n', '<leader>p', vim.diagnostic.goto_prev)
 vim.keymap.set('n', '<leader>n', vim.diagnostic.goto_next)
 -- close all buffers except the active one
