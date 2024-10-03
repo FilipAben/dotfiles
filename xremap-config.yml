@@ -13,10 +13,10 @@ modmap:
 keymap:
   - name: Vim-like navigation
     remap:
-      Win-h: Left
-      Win-j: Down
-      Win-k: Up
-      Win-l: Right
+      Win_R-h: Left
+      Win_R-j: Down
+      Win_R-k: Up
+      Win_R-l: Right
   - name: Chromium
     application:
       only: [Chromium]

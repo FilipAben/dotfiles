@@ -117,6 +117,12 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'nvim_lsp_signature_help' }
   },
+  window = {
+    documentation = cmp.config.window.bordered(),
+    completion = cmp.config.window.bordered({
+        winhighlight = 'Normal:CmpPmenu,CursorLine:PmenuSel,Search:None'
+    }),
+  },
   mapping = {
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
@@ -213,7 +219,6 @@ require('gitsigns').setup {
     map('v', '<leader>gr', function() gs.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
     map('n', '<leader>gR', gs.reset_buffer)
     map('n', '<leader>gp', gs.preview_hunk)
-    map('n', '<leader>gb', function() gs.blame_line{full=true} end)
     map('n', '<leader>gd', gs.diffthis)
     map('n', '<leader>gD', function() gs.diffthis('~') end)
 
@@ -278,6 +283,13 @@ vim.keymap.set('n', '<leader>fs', fzflua.lsp_definitions, {})
 vim.keymap.set('n', '<leader>fr', fzflua.lsp_references, {})
 vim.keymap.set('n', '<leader>ca', fzflua.lsp_code_actions)
 vim.keymap.set('n', '<leader>ft', fzflua.treesitter, {})
+vim.keymap.set('n', '<leader>gb', fzflua.git_branches, {})
+vim.keymap.set('n', '<leader>gc', fzflua.git_commits, {})
+vim.keymap.set('n', '<leader>gC', fzflua.git_bcommits, {})
+vim.keymap.set('n', '<leader>gs', fzflua.git_status, {})
+vim.keymap.set('n', '<leader>gS', fzflua.git_stash, {})
+
+
 vim.keymap.set('n', '<leader>p', vim.diagnostic.goto_prev)
 vim.keymap.set('n', '<leader>n', vim.diagnostic.goto_next)
 -- close all buffers except the active one
@@ -299,7 +311,7 @@ vim.keymap.set("n", "<leader>wk", "<C-w>k", { noremap = true, silent = true})
 vim.keymap.set("n", "<leader>wl", "<C-w>l", { noremap = true, silent = true})
 
 -- Diffview shortcut
-vim.keymap.set("n", "<leader>go", ":DiffviewOpen<CR>", { noremap = true, silent = true})
-vim.keymap.set("n", "<leader>gc", ":DiffviewClose<CR>", { noremap = true, silent = true})
+vim.keymap.set("n", "<leader>vo", ":DiffviewOpen<CR>", { noremap = true, silent = true})
+vim.keymap.set("n", "<leader>vc", ":DiffviewClose<CR>", { noremap = true, silent = true})
 
 vim.diagnostic.config({virtual_text = false})
