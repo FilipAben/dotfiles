@@ -276,6 +276,7 @@ vim.keymap.set('n', '<leader>fg', fzflua.live_grep, {})
 vim.keymap.set('n', '<leader>fw', fzflua.grep_cword, {})
 vim.keymap.set('n', '<leader>fs', fzflua.lsp_definitions, {})
 vim.keymap.set('n', '<leader>fr', fzflua.lsp_references, {})
+vim.keymap.set('n', '<leader>ca', fzflua.lsp_code_actions)
 vim.keymap.set('n', '<leader>ft', fzflua.treesitter, {})
 vim.keymap.set('n', '<leader>p', vim.diagnostic.goto_prev)
 vim.keymap.set('n', '<leader>n', vim.diagnostic.goto_next)
@@ -290,7 +291,6 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 -- LSP stuff
 vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", { noremap = true, silent = true })
 
 -- Window navigation using leader
 vim.keymap.set("n", "<leader>wh", "<C-w>h", { noremap = true, silent = true})

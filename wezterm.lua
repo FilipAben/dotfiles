@@ -67,43 +67,43 @@ config.keys = {
   -- Adjusting pane size
   {
     key = 'h',
-    mods = 'SUPER',
+    mods = 'CTRL',
     action = act.AdjustPaneSize { 'Left', 5 },
   },
   {
     key = 'j',
-    mods = 'SUPER',
+    mods = 'CTRL',
     action = act.AdjustPaneSize { 'Down', 5 },
   },
   { 
     key = 'k', 
-    mods = 'LEADER',
+    mods = 'CTRL',
     action = act.AdjustPaneSize { 'Up', 5 }
   },
   {
     key = 'l',
-    mods = 'SUPER',
+    mods = 'CTRL',
     action = act.AdjustPaneSize { 'Right', 5 },
   },
   -- Navigating panes
   {
     key = 'h',
-    mods = 'CTRL',
+    mods = 'SUPER',
     action = act.ActivatePaneDirection 'Left'
   },
   {
     key = 'j',
-    mods = 'CTRL',
+    mods = 'SUPER',
     action = act.ActivatePaneDirection 'Down'
   },
   { 
     key = 'k', 
-    mods = 'CTRL', 
+    mods = 'SUPER', 
     action = act.ActivatePaneDirection 'Up'
   },
   {
     key = 'l',
-    mods = 'CTRL',
+    mods = 'SUPER',
     action = act.ActivatePaneDirection 'Right'
   },
   -- Searching
