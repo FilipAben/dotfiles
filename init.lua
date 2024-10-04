@@ -168,6 +168,10 @@ require("lspconfig").gopls.setup{
 require("lspconfig").ruby_lsp.setup{
   capabilities = capabilities,
   filetypes = { "ruby", "eruby" },
+  init_options = {
+    formatter = 'standard',
+    linters = { 'standard' },
+  },
 }
 
 require("lspconfig").hls.setup{
@@ -188,7 +192,6 @@ require('lint').linters_by_ft = {
   typescriptreact = {'eslint_d'},
   javascriptreact = {'eslint_d'},
   javascript = {'eslint_d'},
-  -- ruby = {'standardrb'},
 }
 
 require('gitsigns').setup {
@@ -253,7 +256,7 @@ require("formatter").setup {
 
 -- Use linter for anything javascript-like
 vim.api.nvim_create_autocmd({"BufWritePost", "TextChanged", "InsertLeave", "BufEnter" }, {
-  pattern = { "*.tsx", "*.ts", "*.jsx", "*.js", "*.mjs", "*.mts", "*.rb"},
+  pattern = { "*.tsx", "*.ts", "*.jsx", "*.js", "*.mjs", "*.mts" },
   callback = function()
     require("lint").try_lint()
   end,
