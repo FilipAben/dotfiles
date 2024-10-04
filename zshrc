@@ -26,6 +26,9 @@ if [[ ! "$PATH" == */opt/homebrew/opt/fzf/bin* ]]; then
 fi
 source <(fzf --zsh)
 
+# rbenv config
+eval "$(rbenv init - zsh)"
+
 ## VI mode config for zsh
 bindkey -v
 export KEYTIMEOUT=1
