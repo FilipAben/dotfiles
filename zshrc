@@ -8,10 +8,9 @@ export BAT_THEME="gruvbox-dark"
 alias v="nvim"
 alias vim="nvim"
 alias ff="rg --line-number --with-filename . --field-match-separator ' ' | fzf --preview \"bat --color=always {1} --highlight-line {2}\" --preview-window ~8,+{2}-5 --bind 'enter:become(nvim +{2} {1})'"
-alias c="cd && FZF_DEFAULT_COMMAND=\"fd -t directory -H\" cd \$(fzf)"
+alias c="cd \$(fd -t directory -H . $HOME| fzf)"
 alias dou="docker compose up -d"
 alias dod="docker compose down"
-
 
 # bun completions
 [ -s "/Users/filip/.bun/_bun" ] && source "/Users/filip/.bun/_bun"
