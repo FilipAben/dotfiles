@@ -1,0 +1,11 @@
+[user]
+	name = Filip Aben
+	email = faben@isabelgroup.eu
+  signingKey = /home/filip/.ssh/id_ed25519.pub
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
+  verbose = true
+[init]
+	defaultBranch = main
