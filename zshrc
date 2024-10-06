@@ -11,6 +11,8 @@ alias ff="rg --line-number --with-filename . --field-match-separator ' ' | fzf -
 alias c="cd \$(fd -t directory -H . $HOME| fzf)"
 alias dou="docker compose up -d"
 alias dod="docker compose down"
+alias cn="vim ~/Notes/daily/\$(date +%Y-%m-%d).md"
+alias sn="vim \$(fzf --walker-root=/home/filip/Notes/)"
 
 # bun completions
 [ -s "/Users/filip/.bun/_bun" ] && source "/Users/filip/.bun/_bun"
