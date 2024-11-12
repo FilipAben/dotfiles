@@ -6,7 +6,7 @@ local config = wezterm.config_builder()
 config.color_scheme = 'Belge (terminal.sexy)'
 config.font = wezterm.font 'BlexMono Nerd Font'
 config.scrollback_lines = 100000
-config.font_size = 16
+config.font_size = 14
 local act = wezterm.action
 
 -- Change mouse scroll amount

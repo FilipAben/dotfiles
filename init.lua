@@ -47,6 +47,7 @@ require("lazy").setup({
   "mhartington/formatter.nvim",
   "windwp/nvim-autopairs",
   "sindrets/diffview.nvim",
+  "norcalli/nvim-colorizer.lua",
   "https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
   {"akinsho/bufferline.nvim", version = "*", dependencies = "nvim-tree/nvim-web-devicons"},
   {"ibhagwan/fzf-lua", dependencies = { "nvim-tree/nvim-web-devicons" }},
@@ -56,6 +57,12 @@ require("lazy").setup({
   -- LSP
   { 'mrcjkb/rustaceanvim', lazy = false }
 })
+
+require("colorizer").setup({
+  'css';
+  'javascript';
+  'markdown';
+}, { css = true })
 
 -- Package configs
 require('nvim-treesitter.configs').setup({
