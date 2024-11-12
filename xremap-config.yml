@@ -17,14 +17,3 @@ keymap:
       Win_R-j: Down
       Win_R-k: Up
       Win_R-l: Right
-  - name: Chromium
-    application:
-      only: [Chromium]
-    remap:
-      Win-c: C-c
-      Win-n: C-n
-      Win-v: C-v
-      Win-t: C-t
-      Win-w: C-w
-      Win-r: C-r
-      Win-f: C-f
