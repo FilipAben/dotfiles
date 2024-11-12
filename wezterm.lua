@@ -30,38 +30,28 @@ config.mouse_bindings = {
 
 config.keys = {
   {
-    key = 'c',
-    mods = 'SUPER',
-    action = act.CopyTo 'Clipboard',
-  },
-  {
-    key = 'v',
-    mods = 'SUPER',
-    action = act.PasteFrom 'Clipboard',
-  },
-  {
     key = 't',
-    mods = 'SUPER',
+    mods = 'ALT',
     action = act.SpawnTab 'CurrentPaneDomain',
   },
   {
     key = 'n',
-    mods = 'SUPER',
+    mods = 'ALT',
     action = act.SpawnWindow,
   },
   {
     key = 'd',
-    mods = 'SUPER',
+    mods = 'ALT',
     action = act.SplitHorizontal { domain = 'CurrentPaneDomain'},
   },
   {
     key = 'd',
-    mods = 'SUPER|SHIFT',
+    mods = 'ALT|SHIFT',
     action = act.SplitVertical { domain = 'CurrentPaneDomain'},
   },
   {
     key = 'f',
-    mods = 'SUPER',
+    mods = 'ALT',
     action = act.TogglePaneZoomState,
   },
   -- Adjusting pane size
@@ -88,28 +78,28 @@ config.keys = {
   -- Navigating panes
   {
     key = 'h',
-    mods = 'SUPER',
+    mods = 'ALT',
     action = act.ActivatePaneDirection 'Left'
   },
   {
     key = 'j',
-    mods = 'SUPER',
+    mods = 'ALT',
     action = act.ActivatePaneDirection 'Down'
   },
   { 
     key = 'k', 
-    mods = 'SUPER', 
+    mods = 'ALT', 
     action = act.ActivatePaneDirection 'Up'
   },
   {
     key = 'l',
-    mods = 'SUPER',
+    mods = 'ALT',
     action = act.ActivatePaneDirection 'Right'
   },
   -- Searching
   {
     key = 'f',
-    mods = 'SUPER',
+    mods = 'ALT',
     action = act.Search("CurrentSelectionOrEmptyString"),
   },
 }
@@ -118,7 +108,7 @@ for i = 1, 8 do
   -- CTRL+SUPER + number to activate that tab
   table.insert(config.keys, {
     key = tostring(i),
-    mods = 'SUPER',
+    mods = 'ALT',
     action = act.ActivateTab(i - 1),
   })
 end

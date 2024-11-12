@@ -2,13 +2,6 @@ modmap:
   - name: Caps-to-esc
     remap:
       CapsLock: Esc
-  - name: win-alt-swap
-    device:
-      only: ['AT Translated Set 2 keyboard']
-    remap:
-      Win_L: Alt_L
-      Alt_L: Win_L
-      Alt_R: Win_R
 
 keymap:
   - name: Vim-like navigation
