@@ -26,6 +26,11 @@ config.mouse_bindings = {
     action = wezterm.action.SelectTextAtMouseCursor 'Word',
     mods = 'NONE',
   },
+  {
+    event = { Up = { streak = 1, button = 'Left' } },
+    action = wezterm.action.CompleteSelection 'Clipboard',
+    mods = 'NONE',
+  },
 }
 
 config.inactive_pane_hsb = {
