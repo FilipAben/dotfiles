@@ -2,9 +2,10 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
-export EDITOR='/opt/homebrew/bin/nvim'
-export FZF_DEFAULT_OPTS="--walker=file,dir,hidden,follow --walker-skip=.git,node_modules,target,Library"
+export EDITOR='/usr/bin/nvim'
 export BAT_THEME="gruvbox-dark"
+export PATH=${PATH}:${HOME}/.fly/bin:${HOME}/.local/bin
+
 alias v="nvim"
 alias vim="nvim"
 alias ff="rg --line-number --with-filename . --field-match-separator ' ' | fzf --preview \"bat --color=always {1} --highlight-line {2}\" --preview-window ~8,+{2}-5 --bind 'enter:become(nvim +{2} {1})'"
@@ -12,19 +13,44 @@ alias c="cd \$(fd -t directory -H . $HOME| fzf)"
 alias dou="docker compose up -d"
 alias dod="docker compose down"
 alias cn="vim ~/Notes/daily/\$(date +%Y-%m-%d).md"
-alias sn="vim \$(fzf --walker-root=/home/filip/Notes/)"
+alias sn="vim +\"cd ~/Notes\" +\"FzfLua files\""
+alias vpnup="sudo gpclient connect -u faben --as-gateway devgtw3.isabelcorp.be"
+alias v="vim +\"FzfLua files\""
+fzf-git-branch() {
+    git rev-parse HEAD > /dev/null 2>&1 || return
 
-# bun completions
-[ -s "/Users/filip/.bun/_bun" ] && source "/Users/filip/.bun/_bun"
+    git branch --color=always --all --sort=-committerdate |
+        grep -v HEAD |
+        fzf --height 50% --ansi --no-multi --preview-window right:65% \
+            --preview 'git log -n 50 --color=always --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed "s/.* //" <<< {})' |
+        sed "s/.* //"
+}
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$BUN_INSTALL/bin:$PATH:$HOME/go/bin
+fzf-git-checkout() {
+    git rev-parse HEAD > /dev/null 2>&1 || return
 
-# FZF config
-if [[ ! "$PATH" == */opt/homebrew/opt/fzf/bin* ]]; then
-  PATH="${PATH:+${PATH}:}/opt/homebrew/opt/fzf/bin"
-fi
+    local branch
+
+    branch=$(fzf-git-branch)
+    if [[ "$branch" = "" ]]; then
+        echo "No branch selected."
+        return
+    fi
+
+    # If branch name starts with 'remotes/' then it is a remote branch. By
+    # using --track and a remote branch name, it is the same as:
+    # git checkout -b branchName --track origin/branchName
+    if [[ "$branch" = 'remotes/'* ]]; then
+        git checkout --track $branch
+    else
+        git checkout $branch;
+    fi
+}
+
+alias gb='fzf-git-branch'
+alias gco='fzf-git-checkout'
+
+# fzf config
 source <(fzf --zsh)
 
 # rbenv config
@@ -49,3 +75,7 @@ zle -N zle-keymap-select
 echo -ne '\e[6 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[6 q' ;} # Use beam shape cursor for each new prompt.
 export VI_MODE_SET_CURSOR=true
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
