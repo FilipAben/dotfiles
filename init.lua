@@ -18,6 +18,21 @@ vim.g.mapleader = ' '
 vim.g.mkdp_auto_close = 0
 vim.g.marked_filetypes = {"markdown"}
 
+if os.getenv("WSL_INTEROP") then
+    vim.g.clipboard = {
+        name = "win32yank-wsl",
+        copy = {
+            ["+"] = "win32yank.exe -i --crlf",
+            ["*"] = "win32yank.exe -i --crlf",
+        },
+        paste = {
+            ["+"] = "win32yank.exe -o --lf",
+            ["*"] = "win32yank.exe -o --lf",
+        },
+        cache_enabled = true,
+    }
+end
+
 -- Lazy vim config
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -53,7 +68,6 @@ require("lazy").setup({
   {"ibhagwan/fzf-lua", dependencies = { "nvim-tree/nvim-web-devicons" }},
   {"ggandor/leap.nvim"},
   {"MeanderingProgrammer/markdown.nvim", name = "render-markdown", dependencies = { "nvim-treesitter/nvim-treesitter" }},
-
   -- LSP
   { 'mrcjkb/rustaceanvim', lazy = false }
 })
@@ -176,7 +190,6 @@ require("lspconfig").ruby_lsp.setup{
   capabilities = capabilities,
   filetypes = { "ruby", "eruby" },
   init_options = {
-    formatter = 'standard',
     linters = { 'standard' },
   },
 }
