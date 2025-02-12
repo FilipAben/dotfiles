@@ -65,8 +65,8 @@ require("lazy").setup({
   "https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
   {"akinsho/bufferline.nvim", version = "*", dependencies = "nvim-tree/nvim-web-devicons"},
   {"ibhagwan/fzf-lua", dependencies = { "nvim-tree/nvim-web-devicons" }},
-  {"ggandor/leap.nvim"},
   {"MeanderingProgrammer/markdown.nvim", name = "render-markdown", dependencies = { "nvim-treesitter/nvim-treesitter" }},
+  {"shellRaining/hlchunk.nvim", event = { "BufReadPre", "BufNewFile" }},
   -- LSP
   { 'mrcjkb/rustaceanvim', lazy = false }
 })
@@ -119,8 +119,6 @@ require("render-markdown").setup {
         highlight_inline = 'RenderMarkdownCodeInline',
     },
 }
-
-require('leap').create_default_mappings()
 
 require('lualine').setup()
 require('nvim-autopairs').setup()
@@ -267,11 +265,20 @@ require("formatter").setup {
     javascript = {
       require('formatter.defaults.eslint_d')
     },
-    -- eruby = require("formatter.filetypes.eruby").erbformatter,
+    eruby = require("formatter.filetypes.eruby").erbformatter,
     ruby = require("formatter.filetypes.ruby").rubocop,
     go = require('formatter.filetypes.go').gofmt
   }
 }
+
+require("hlchunk").setup({
+    indent = {
+        enable = true
+    },
+    chunk = {
+        enable = true
+    }
+})
 
 -- Use linter for anything javascript-like
 vim.api.nvim_create_autocmd({"BufWritePost", "TextChanged", "InsertLeave", "BufEnter" }, {
