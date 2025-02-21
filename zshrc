@@ -1,6 +1,6 @@
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
-plugins=(git)
+plugins=(git forgit)
 source $ZSH/oh-my-zsh.sh
 export EDITOR='/home/linuxbrew/.linuxbrew/bin/nvim'
 export FZF_DEFAULT_OPTS="--walker=file,dir,hidden,follow --walker-skip=.git,node_modules,target,Library"
@@ -29,7 +29,6 @@ alias dou="docker compose up -d"
 alias dod="docker compose down"
 alias cn="vim ~/Notes/daily/\$(date +%Y-%m-%d).md"
 alias sn="vim +\"cd ~/Notes\" +\"FzfLua files\""
-alias vpnup="sudo gpclient connect -u faben --as-gateway devgtw3.isabelcorp.be"
 alias v="vim +\"FzfLua files\""
 
 # fzf config
@@ -47,6 +46,5 @@ export NVM_DIR="$HOME/.nvm"
 # linux homebrew config
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-# rbenv config
-eval "$(rbenv init - zsh)"
-export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@3)"
+# bun completions
+[ -s "/home/filip/.bun/_bun" ] && source "/home/filip/.bun/_bun"

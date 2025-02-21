@@ -79,7 +79,7 @@ require("colorizer").setup({
 
 -- Package configs
 require('nvim-treesitter.configs').setup({
-  ensure_installed = { "ruby", "embedded_template", "rust", "markdown", "markdown_inline", "typescript", "javascript" },
+  ensure_installed = { "embedded_template", "rust", "markdown", "markdown_inline", "typescript", "javascript" },
   auto_install = true,
   highlight = {
     enable = true,
@@ -183,14 +183,6 @@ require("lspconfig").gopls.setup{
   capabilities = capabilities
 }
 
-require("lspconfig").ruby_lsp.setup{
-  capabilities = capabilities,
-  filetypes = { "ruby", "eruby" },
-  init_options = {
-    linters = { 'standard' },
-  },
-}
-
 require("lspconfig").hls.setup{
   capabilities = capabilities
 }
@@ -265,8 +257,6 @@ require("formatter").setup {
     javascript = {
       require('formatter.defaults.eslint_d')
     },
-    eruby = require("formatter.filetypes.eruby").erbformatter,
-    ruby = require("formatter.filetypes.ruby").rubocop,
     go = require('formatter.filetypes.go').gofmt
   }
 }
@@ -288,9 +278,9 @@ vim.api.nvim_create_autocmd({"BufWritePost", "TextChanged", "InsertLeave", "BufE
   end,
 })
 
--- Format anything javascript & ruby-like after save
+-- Format code after save
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-  pattern = { "*.tsx", "*.ts", "*.jsx", "*.js", "*.mjs", "*.mts", "*.rb", "*.erb", "*.go" },
+  pattern = { "*.tsx", "*.ts", "*.jsx", "*.js", "*.mjs", "*.mts", "*.go" },
   callback = function()
     vim.cmd("Format")
   end,
