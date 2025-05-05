@@ -175,6 +175,7 @@ require("lspconfig").ts_ls.setup{
 require("lspconfig").tailwindcss.setup{
   capabilities = capabilities
 }
+
 require("lspconfig").terraformls.setup{
   capabilities = capabilities
 }
@@ -233,7 +234,7 @@ require('gitsigns').setup {
     map('n', '<leader>gp', gs.preview_hunk)
     map('n', '<leader>gd', gs.diffthis)
     map('n', '<leader>gD', function() gs.diffthis('~') end)
-
+    map('n', '<leader>gB', function() gs.blame_line({ full = true }) end)
     -- Text object
     map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
   end
@@ -300,6 +301,8 @@ vim.keymap.set('n', '<leader>fg', fzflua.live_grep, {})
 vim.keymap.set('n', '<leader>fw', fzflua.grep_cword, {})
 vim.keymap.set('n', '<leader>fs', fzflua.lsp_definitions, {})
 vim.keymap.set('n', '<leader>fr', fzflua.lsp_references, {})
+vim.keymap.set('n', '<leader>fu', fzflua.diagnostics_document, {})
+vim.keymap.set('n', '<leader>fU', fzflua.diagnostics_workspace, {})
 vim.keymap.set('n', '<leader>ca', fzflua.lsp_code_actions)
 vim.keymap.set('n', '<leader>ft', fzflua.treesitter, {})
 vim.keymap.set('n', '<leader>gb', fzflua.git_branches, {})
@@ -312,7 +315,8 @@ vim.keymap.set('n', '<leader>gS', fzflua.git_stash, {})
 vim.keymap.set('n', '<leader>p', vim.diagnostic.goto_prev)
 vim.keymap.set('n', '<leader>n', vim.diagnostic.goto_next)
 -- close all buffers except the active one
-vim.keymap.set('n', '<leader>bd', ":%bd|e#|bd#<CR>")
+vim.keymap.set('n', '<leader>ba', ":%bd|e#|bd#<CR>")
+vim.keymap.set('n', '<leader>bd', ":bd<CR>")
 
 -- Tab navigation
 vim.keymap.set('n', '<Tab>', ":bn<CR>")
@@ -330,3 +334,5 @@ vim.keymap.set("n", "<leader>wk", "<C-w>k", { noremap = true, silent = true})
 vim.keymap.set("n", "<leader>wl", "<C-w>l", { noremap = true, silent = true})
 
 vim.diagnostic.config({virtual_text = false})
+
+
