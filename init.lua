@@ -18,6 +18,7 @@ vim.g.mapleader = ' '
 vim.g.mkdp_auto_close = 0
 vim.g.marked_filetypes = {"markdown"}
 
+
 if os.getenv("WSL_INTEROP") then
     vim.g.clipboard = {
         name = "win32yank-wsl",
@@ -82,6 +83,10 @@ require("lazy").setup({
   {"MeanderingProgrammer/markdown.nvim", name = "render-markdown", dependencies = { "nvim-treesitter/nvim-treesitter" }},
   {"shellRaining/hlchunk.nvim", event = { "BufReadPre", "BufNewFile" }},
 })
+
+-- SET THEME here, before other initialization
+vim.cmd.colorscheme "catppuccin-latte"
+
 
 require("colorizer").setup({
   'css';
@@ -347,9 +352,6 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     vim.cmd("Format")
   end,
 })
-
--- SET THEME
-vim.cmd.colorscheme "catppuccin-latte"
 
 -- KEY MAPPING
 vim.keymap.set({'n', 'x'}, 'x', '"_x')
