@@ -3,3 +3,9 @@ Pictures
 node_modules
 .nvm
 .git
+.local
+.config
+.oh-my-zsh
+.npm
+.cache
+.Trash
