@@ -54,8 +54,8 @@ config.mouse_bindings = {
 }
 
 config.inactive_pane_hsb = {
-  saturation = 0.2,
-  brightness = 0.2,
+  saturation = 0.7,
+  brightness = 0.7,
 }
 
 config.keys = {
