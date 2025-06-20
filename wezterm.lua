@@ -3,10 +3,11 @@ local wezterm = require 'wezterm'
 
 local config = wezterm.config_builder()
 
-config.color_scheme = 'Belge (terminal.sexy)'
+-- config.color_scheme = 'Belge (terminal.sexy)'
+config.color_scheme = 'Bluloco Zsh Light (Gogh)'
 config.font = wezterm.font 'BlexMono Nerd Font'
 config.scrollback_lines = 100000
-config.font_size = 14
+config.font_size = 20
 local act = wezterm.action
 
 
@@ -60,27 +61,27 @@ config.inactive_pane_hsb = {
 config.keys = {
   {
     key = 't',
-    mods = 'ALT',
+    mods = 'CMD',
     action = act.SpawnTab 'CurrentPaneDomain',
   },
   {
     key = 'n',
-    mods = 'ALT',
+    mods = 'CMD',
     action = act.SpawnWindow,
   },
   {
     key = 'd',
-    mods = 'ALT',
+    mods = 'CMD',
     action = act.SplitHorizontal { domain = 'CurrentPaneDomain'},
   },
   {
     key = 'd',
-    mods = 'ALT|SHIFT',
+    mods = 'CMD|SHIFT',
     action = act.SplitVertical { domain = 'CurrentPaneDomain'},
   },
   {
     key = 'f',
-    mods = 'ALT',
+    mods = 'CMD',
     action = act.TogglePaneZoomState,
   },
   -- Adjusting pane size
@@ -107,30 +108,34 @@ config.keys = {
   -- Navigating panes
   {
     key = 'h',
-    mods = 'ALT',
+    mods = 'CMD',
     action = act.ActivatePaneDirection 'Left'
   },
   {
     key = 'j',
-    mods = 'ALT',
+    mods = 'CMD',
     action = act.ActivatePaneDirection 'Down'
   },
   { 
     key = 'k', 
-    mods = 'ALT', 
+    mods = 'CMD', 
     action = act.ActivatePaneDirection 'Up'
   },
   {
     key = 'l',
-    mods = 'ALT',
+    mods = 'CMD',
     action = act.ActivatePaneDirection 'Right'
   },
   -- Searching
   {
     key = 'f',
-    mods = 'ALT',
+    mods = 'CMD',
     action = act.Search("CurrentSelectionOrEmptyString"),
   },
+  { mods = "CMD", 
+    key = "Backspace", 
+    action = act.SendKey({ mods = "CTRL", key = "u" })
+  }
 }
 
 for i = 1, 8 do
