@@ -10,3 +10,10 @@ keymap:
       Win_R-j: Down
       Win_R-k: Up
       Win_R-l: Right
+  - name: Ctrl mapping
+    remap:
+      Win_L-c: CTRL-SHIFT-c
+      Win_L-v: CTRL-SHIFT-v
+      Win_L-f: CTRL-f
+      Win_L-t: CTRL-t
+      Win_L-n: CTRL-n

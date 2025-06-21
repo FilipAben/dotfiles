@@ -1,0 +1,13 @@
+[Unit]
+Description=Xremap
+After=default.target
+
+[Service]
+ExecStart=/home/filip/bin/xremap --watch=device /home/filip/dotfiles/xremap-config.yml
+Restart=always
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target
+
