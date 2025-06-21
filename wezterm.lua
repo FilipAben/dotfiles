@@ -6,7 +6,11 @@ local config = wezterm.config_builder()
 config.color_scheme = 'Bluloco Zsh Light (Gogh)'
 config.font = wezterm.font 'BlexMono Nerd Font'
 config.scrollback_lines = 100000
-config.font_size = 14
+if wezterm.hostname() == "Flab-desktop" then
+  config.font_size = 14
+else
+  config.font_size = 12
+end
 local act = wezterm.action
 
 
