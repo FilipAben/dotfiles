@@ -6,7 +6,7 @@ local config = wezterm.config_builder()
 config.color_scheme = 'Bluloco Zsh Light (Gogh)'
 config.font = wezterm.font 'BlexMono Nerd Font'
 config.scrollback_lines = 100000
-config.font_size = 12
+config.font_size = 14
 local act = wezterm.action
 
 
@@ -141,7 +141,7 @@ for i = 1, 8 do
   -- CTRL+SUPER + number to activate that tab
   table.insert(config.keys, {
     key = tostring(i),
-    mods = 'ALT',
+    mods = 'CMD',
     action = act.ActivateTab(i - 1),
   })
 end
