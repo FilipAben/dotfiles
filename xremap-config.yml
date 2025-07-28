@@ -14,5 +14,3 @@ keymap:
     remap:
       Win_L-c: CTRL-SHIFT-c
       Win_L-v: CTRL-SHIFT-v
-      Win_L-f: CTRL-f
-      Win_L-n: CTRL-n
