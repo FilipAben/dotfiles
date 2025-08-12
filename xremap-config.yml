@@ -12,5 +12,5 @@ keymap:
       Win_R-l: Right
   - name: Ctrl mapping
     remap:
-      Win_L-c: CTRL-SHIFT-c
+      Win_L-c: CTRL-c
       Win_L-v: CTRL-SHIFT-v

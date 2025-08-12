@@ -1,0 +1,36 @@
+(defpoll time :interval "1s"
+              :initial "initial-value"  ; optional, defaults to poll at startup
+  `date +"%e %b %H:%M"`)
+
+(deflisten activeworkspace :initial "{ \"value\": [\"1\"]}" `./scripts/hyprevent.sh workspace`)
+
+(defwidget timebox [] 
+ (box :class "topbox"
+   :orientation "v" 
+   :halign "end"
+
+   (button
+    :onclick "calendar"
+
+   time)))
+
+(defwidget currentworkspace [] "${activeworkspace.value[0]}")
+
+
+(defwindow topbar
+           :monitor 0
+           :geometry (geometry :x "0px"
+                               :y "0px"
+                               :width "100%"
+                               :height "30px"
+                               :anchor "top center")
+           :stacking "fg"
+           :reserve (struts :distance "40px" :side "top")
+           :windowtype "dock"
+           :wm-ignore false
+           :exclusive true
+ (centerbox :orientation "h"
+  (currentworkspace)
+  (timebox)
+  (timebox)
+ )) 

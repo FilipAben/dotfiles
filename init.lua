@@ -116,6 +116,7 @@ require("fzf-lua").setup({
     },
   },
 })
+require("fzf-lua").register_ui_select()
 
 require("render-markdown").setup {
     code = {
@@ -193,15 +194,11 @@ require("lspconfig").tailwindcss.setup{
   capabilities = capabilities
 }
 
-require("lspconfig").terraformls.setup{
-  capabilities = capabilities
-}
-
-require("lspconfig").gopls.setup{
-  capabilities = capabilities
-}
-
 require("lspconfig").hls.setup{
+  capabilities = capabilities
+}
+
+require("lspconfig").gh_actions_ls.setup{
   capabilities = capabilities
 }
 
